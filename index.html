@@ -3,30 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="个人开发者资料页面 - 展示技能、项目和联系方式">
-    <title>您的姓名 - 开发者资料</title>
+    <meta name="description" content="科幻风格个人介绍页面 - 现代化开发者资料展示">
+    <meta name="keywords" content="开发者,程序员,科幻,个人介绍,技能展示">
+    <title>Alex Chen - 未来开发者</title>
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts - 科幻风格字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* CSS变量定义主题颜色 */
+        /* CSS变量定义科幻主题颜色 */
         :root {
-            --primary-color: #2563eb;
-            --primary-dark: #1d4ed8;
-            --secondary-color: #64748b;
-            --accent-color: #06b6d4;
-            --text-primary: #1e293b;
-            --text-secondary: #64748b;
-            --background-light: #f8fafc;
-            --white: #ffffff;
-            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-            --border-radius: 12px;
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a2e;
+            --bg-tertiary: #16213e;
+            --neon-cyan: #00ffff;
+            --neon-purple: #ff00ff;
+            --neon-green: #00ff00;
+            --neon-blue: #0080ff;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --text-muted: #888888;
+            --glow-cyan: 0 0 20px #00ffff;
+            --glow-purple: 0 0 20px #ff00ff;
+            --glow-green: 0 0 20px #00ff00;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -38,11 +40,52 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Exo 2', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
             color: var(--text-primary);
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--bg-primary);
             min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 科幻背景 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+            z-index: -2;
+        }
+
+        /* 星空粒子背景 */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--neon-cyan);
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
         }
 
         /* 容器样式 */
@@ -50,31 +93,53 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem 1rem;
+            position: relative;
+            z-index: 1;
         }
 
-        /* 卡片基础样式 */
+        /* 科幻卡片样式 */
         .card {
-            background: var(--white);
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-lg);
+            background: rgba(26, 26, 46, 0.8);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 15px;
             padding: 2rem;
             margin-bottom: 2rem;
             transition: var(--transition);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .card:hover::before {
+            left: 100%;
         }
 
         .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+            transform: translateY(-5px);
+            box-shadow: var(--glow-cyan);
+            border-color: var(--neon-cyan);
         }
 
-        /* 头部样式 */
+        /* 科幻头部样式 */
         .header {
             text-align: center;
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-            color: var(--white);
-            border-radius: var(--border-radius);
-            padding: 3rem 2rem;
-            margin-bottom: 2rem;
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1));
+            border: 2px solid transparent;
+            border-image: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple)) 1;
+            border-radius: 20px;
+            padding: 4rem 2rem;
+            margin-bottom: 3rem;
             position: relative;
             overflow: hidden;
         }
@@ -82,67 +147,131 @@
         .header::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-            opacity: 0.1;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, var(--neon-cyan), transparent, var(--neon-purple), transparent);
+            animation: rotate 10s linear infinite;
+            z-index: -1;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
+            background: var(--bg-secondary);
+            border-radius: 18px;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
         }
 
         .profile-image {
-            width: 150px;
-            height: 150px;
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
-            border: 4px solid var(--white);
-            margin: 0 auto 1.5rem;
+            border: 3px solid var(--neon-cyan);
+            margin: 0 auto 2rem;
             display: block;
             object-fit: cover;
-            box-shadow: var(--shadow-lg);
+            box-shadow: var(--glow-cyan);
             transition: var(--transition);
             position: relative;
             z-index: 1;
+            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple));
+            padding: 3px;
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
         }
 
         .profile-image:hover {
             transform: scale(1.05);
+            box-shadow: var(--glow-purple);
+            border-color: var(--neon-purple);
         }
 
         .header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
+            font-family: 'Orbitron', monospace;
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
             position: relative;
             z-index: 1;
+            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
         }
 
         .header .subtitle {
-            font-size: 1.25rem;
-            font-weight: 400;
-            opacity: 0.9;
+            font-size: 1.4rem;
+            font-weight: 300;
+            color: var(--text-secondary);
             position: relative;
             z-index: 1;
+            margin-bottom: 1rem;
         }
 
-        /* 部分标题样式 */
+        .header .tagline {
+            font-size: 1rem;
+            color: var(--neon-green);
+            font-family: 'Orbitron', monospace;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        /* 科幻部分标题样式 */
         .section-title {
-            font-size: 2rem;
-            font-weight: 600;
+            font-family: 'Orbitron', monospace;
+            font-size: 2.2rem;
+            font-weight: 700;
             color: var(--text-primary);
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             position: relative;
-            padding-bottom: 0.5rem;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+            z-index: -1;
         }
 
         .section-title::after {
             content: '';
             position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-            border-radius: 2px;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+            box-shadow: var(--glow-cyan);
         }
 
         /* 关于我部分样式 */
@@ -150,298 +279,226 @@
             font-size: 1.1rem;
             line-height: 1.8;
             color: var(--text-secondary);
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        /* 技能部分样式 */
+        /* 科幻技能网格 */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
         }
 
         .skill-item {
-            background: var(--background-light);
-            padding: 1rem;
-            border-radius: 8px;
+            background: rgba(0, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 2rem 1rem;
             text-align: center;
             transition: var(--transition);
-            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .skill-item:hover::before {
+            opacity: 1;
         }
 
         .skill-item:hover {
-            background: var(--primary-color);
-            color: var(--white);
-            transform: translateY(-2px);
-            border-color: var(--primary-dark);
+            transform: translateY(-10px) scale(1.05);
+            border-color: var(--neon-cyan);
+            box-shadow: var(--glow-cyan);
         }
 
         .skill-item i {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            color: var(--primary-color);
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--neon-cyan);
             transition: var(--transition);
         }
 
         .skill-item:hover i {
-            color: var(--white);
+            color: var(--neon-purple);
+            text-shadow: var(--glow-purple);
         }
 
         .skill-name {
+            font-family: 'Orbitron', monospace;
             font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-
-        .skill-level {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
-        /* 项目部分样式 */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 1.5rem;
-        }
-
-        .project-card {
-            background: var(--white);
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: var(--shadow-md);
-            transition: var(--transition);
-            border: 1px solid #e2e8f0;
-        }
-
-        .project-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .project-image {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            font-size: 3rem;
-        }
-
-        .project-content {
-            padding: 1.5rem;
-        }
-
-        .project-title {
-            font-size: 1.25rem;
-            font-weight: 600;
+            font-size: 1.1rem;
             margin-bottom: 0.5rem;
             color: var(--text-primary);
         }
 
-        .project-description {
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-            line-height: 1.6;
+        .skill-level {
+            font-size: 0.9rem;
+            color: var(--neon-green);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .tech-tag {
-            background: var(--background-light);
-            color: var(--primary-color);
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.875rem;
-            font-weight: 500;
-        }
-
-        .project-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .project-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-        }
-
-        .project-link:hover {
-            color: var(--primary-dark);
-            transform: translateX(2px);
-        }
-
-        /* 联系部分样式 */
+        /* 科幻联系方式样式 */
         .contact-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
-            margin-top: 1.5rem;
+            margin-top: 2rem;
         }
 
         .contact-item {
+            background: rgba(255, 0, 255, 0.05);
+            border: 1px solid rgba(255, 0, 255, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
             text-align: center;
-            padding: 1.5rem;
-            background: var(--background-light);
-            border-radius: var(--border-radius);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-item::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255, 0, 255, 0.1), transparent);
+            animation: rotate 8s linear infinite;
+            opacity: 0;
             transition: var(--transition);
         }
 
+        .contact-item:hover::before {
+            opacity: 1;
+        }
+
         .contact-item:hover {
-            background: var(--primary-color);
-            color: var(--white);
-            transform: translateY(-2px);
+            transform: translateY(-5px);
+            border-color: var(--neon-purple);
+            box-shadow: var(--glow-purple);
         }
 
         .contact-item i {
             font-size: 2.5rem;
-            color: var(--primary-color);
+            color: var(--neon-purple);
             margin-bottom: 1rem;
             transition: var(--transition);
         }
 
         .contact-item:hover i {
-            color: var(--white);
+            color: var(--neon-cyan);
+            text-shadow: var(--glow-cyan);
         }
 
         .contact-title {
+            font-family: 'Orbitron', monospace;
             font-weight: 600;
             margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .contact-link {
-            color: inherit;
+            color: var(--text-secondary);
             text-decoration: none;
             transition: var(--transition);
         }
 
         .contact-link:hover {
-            opacity: 0.8;
+            color: var(--neon-cyan);
         }
 
-        /* 社交媒体链接样式 */
+        /* 科幻社交链接 */
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
+            gap: 1.5rem;
+            margin-top: 3rem;
         }
 
         .social-link {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 50px;
-            height: 50px;
-            background: var(--white);
-            color: var(--primary-color);
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 255, 255, 0.1);
+            border: 2px solid var(--neon-cyan);
             border-radius: 50%;
+            color: var(--neon-cyan);
             text-decoration: none;
             font-size: 1.5rem;
             transition: var(--transition);
-            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .social-link:hover::before {
+            left: 100%;
         }
 
         .social-link:hover {
-            background: var(--primary-color);
-            color: var(--white);
-            transform: translateY(-2px);
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: var(--glow-cyan);
+            border-color: var(--neon-purple);
+            color: var(--neon-purple);
         }
 
-        /* 页脚样式 */
+        /* 科幻页脚样式 */
         .footer {
             text-align: center;
             padding: 2rem;
-            color: var(--text-secondary);
-            background: var(--white);
-            border-radius: var(--border-radius);
-            margin-top: 2rem;
+            color: var(--text-muted);
+            background: rgba(26, 26, 46, 0.5);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 15px;
+            margin-top: 3rem;
+            position: relative;
         }
 
-        /* 响应式设计 */
-        @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-            }
-
-            .header {
-                padding: 2rem 1rem;
-            }
-
-            .header h1 {
-                font-size: 2rem;
-            }
-
-            .header .subtitle {
-                font-size: 1.1rem;
-            }
-
-            .profile-image {
-                width: 120px;
-                height: 120px;
-            }
-
-            .section-title {
-                font-size: 1.75rem;
-            }
-
-            .skills-grid {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .social-links {
-                flex-wrap: wrap;
-            }
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
         }
 
-        @media (max-width: 480px) {
-            .card {
-                padding: 1.5rem;
-            }
-
-            .header {
-                padding: 1.5rem 1rem;
-            }
-
-            .profile-image {
-                width: 100px;
-                height: 100px;
-            }
-
-            .header h1 {
-                font-size: 1.75rem;
-            }
-
-            .section-title {
-                font-size: 1.5rem;
-            }
-        }
-
-        /* 动画效果 */
+        /* 科幻动画效果 */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(50px);
             }
             to {
                 opacity: 1;
@@ -449,18 +506,148 @@
             }
         }
 
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
         .card {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.4s; }
+        .card:nth-child(4) { animation-delay: 0.6s; }
+        .card:nth-child(5) { animation-delay: 0.8s; }
+
+        .skill-item {
+            animation: slideInLeft 0.6s ease-out;
+        }
+
+        .skill-item:nth-child(even) {
+            animation: slideInRight 0.6s ease-out;
+        }
+
+        .contact-item {
             animation: fadeInUp 0.6s ease-out;
         }
 
-        .card:nth-child(2) { animation-delay: 0.1s; }
-        .card:nth-child(3) { animation-delay: 0.2s; }
-        .card:nth-child(4) { animation-delay: 0.3s; }
-        .card:nth-child(5) { animation-delay: 0.4s; }
+        .contact-item:nth-child(2) { animation-delay: 0.2s; }
+        .contact-item:nth-child(3) { animation-delay: 0.4s; }
 
-        /* 可访问性改进 */
+        /* 科幻响应式设计 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .header {
+                padding: 3rem 1.5rem;
+            }
+
+            .header h1 {
+                font-size: 2.2rem;
+            }
+
+            .header .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .profile-image {
+                width: 150px;
+                height: 150px;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+                letter-spacing: 2px;
+            }
+
+            .skills-grid {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .social-links {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .social-link {
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .header {
+                padding: 2rem 1rem;
+            }
+
+            .profile-image {
+                width: 120px;
+                height: 120px;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .header .subtitle {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+                letter-spacing: 1px;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+
+            .skill-item {
+                padding: 1.5rem 0.5rem;
+            }
+
+            .skill-item i {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* 可访问性和性能优化 */
         @media (prefers-reduced-motion: reduce) {
-            * {
+            *,
+            *::before,
+            *::after {
                 animation-duration: 0.01ms !important;
                 animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
@@ -470,161 +657,93 @@
         /* 焦点样式 */
         a:focus,
         button:focus {
-            outline: 2px solid var(--primary-color);
+            outline: 2px solid var(--neon-cyan);
             outline-offset: 2px;
+            border-radius: 4px;
         }
+
+        /* 高对比度模式支持 */
+        @media (prefers-contrast: high) {
+            :root {
+                --neon-cyan: #ffffff;
+                --neon-purple: #ffffff;
+                --neon-green: #ffffff;
+                --text-primary: #ffffff;
+                --text-secondary: #cccccc;
+            }
+        }
+
     </style>
 </head>
 
 <body>
+    <!-- 星空背景 -->
+    <div class="stars" id="stars"></div>
+
     <div class="container">
-        <!-- 头部个人信息 -->
+        <!-- 科幻头部个人信息 -->
         <header class="header">
-            <img src="https://via.placeholder.com/150x150/2563eb/ffffff?text=头像"
-                 alt="个人头像"
-                 class="profile-image">
-            <h1>您的姓名</h1>
-            <p class="subtitle">全栈开发工程师 | 技术爱好者</p>
+            <div class="profile-image">
+                <img src="https://via.placeholder.com/180x180/00ffff/000000?text=AC" alt="Alex Chen头像">
+            </div>
+            <h1 id="name-title">ALEX CHEN</h1>
+            <p class="subtitle">全栈开发工程师 | 未来技术探索者</p>
+            <p class="tagline">// 代码创造未来</p>
         </header>
 
         <!-- 关于我部分 -->
         <section class="card">
             <h2 class="section-title">关于我</h2>
             <p class="about-text">
-                我是一名充满热情的全栈开发工程师，专注于创建优雅、高效的Web应用程序。
-                拥有多年的开发经验，熟练掌握现代前端和后端技术栈。我热爱学习新技术，
-                享受解决复杂问题的过程，并致力于编写干净、可维护的代码。
-            </p>
-            <p class="about-text">
-                除了编程，我还喜欢参与开源项目，分享技术知识，并与开发者社区保持积极互动。
-                我相信技术的力量可以改变世界，并希望通过我的工作为此做出贡献。
+                我是一名专注于前沿技术的全栈开发工程师，致力于构建创新的数字解决方案。
+                拥有5年+开发经验，精通现代Web技术栈，热衷于探索AI、区块链等新兴技术。
+                我相信代码不仅是工具，更是创造未来的艺术。
             </p>
         </section>
 
-        <!-- 技能部分 -->
+        <!-- 核心技能部分 -->
         <section class="card">
-            <h2 class="section-title">技能专长</h2>
+            <h2 class="section-title">核心技能</h2>
             <div class="skills-grid">
                 <div class="skill-item">
                     <i class="fab fa-js-square"></i>
                     <div class="skill-name">JavaScript</div>
-                    <div class="skill-level">高级</div>
+                    <div class="skill-level">专家级</div>
                 </div>
                 <div class="skill-item">
                     <i class="fab fa-react"></i>
                     <div class="skill-name">React</div>
-                    <div class="skill-level">高级</div>
+                    <div class="skill-level">专家级</div>
                 </div>
                 <div class="skill-item">
                     <i class="fab fa-node-js"></i>
                     <div class="skill-name">Node.js</div>
-                    <div class="skill-level">中级</div>
+                    <div class="skill-level">高级</div>
                 </div>
                 <div class="skill-item">
                     <i class="fab fa-python"></i>
                     <div class="skill-name">Python</div>
-                    <div class="skill-level">中级</div>
+                    <div class="skill-level">高级</div>
                 </div>
                 <div class="skill-item">
                     <i class="fas fa-database"></i>
                     <div class="skill-name">数据库</div>
+                    <div class="skill-level">高级</div>
+                </div>
+                <div class="skill-item">
+                    <i class="fas fa-brain"></i>
+                    <div class="skill-name">AI/ML</div>
                     <div class="skill-level">中级</div>
                 </div>
                 <div class="skill-item">
-                    <i class="fab fa-aws"></i>
-                    <div class="skill-name">云服务</div>
+                    <i class="fab fa-docker"></i>
+                    <div class="skill-name">DevOps</div>
+                    <div class="skill-level">中级</div>
+                </div>
+                <div class="skill-item">
+                    <i class="fas fa-cube"></i>
+                    <div class="skill-name">区块链</div>
                     <div class="skill-level">初级</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 项目展示部分 -->
-        <section class="card">
-            <h2 class="section-title">精选项目</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-globe"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">个人博客网站</h3>
-                        <p class="project-description">
-                            使用React和Node.js构建的现代化博客平台，支持Markdown编辑、
-                            评论系统和SEO优化。
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">React</span>
-                            <span class="tech-tag">Node.js</span>
-                            <span class="tech-tag">MongoDB</span>
-                            <span class="tech-tag">Express</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link">
-                                <i class="fas fa-external-link-alt"></i>
-                                在线演示
-                            </a>
-                            <a href="#" class="project-link">
-                                <i class="fab fa-github"></i>
-                                源代码
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">任务管理应用</h3>
-                        <p class="project-description">
-                            一个功能丰富的任务管理应用，支持团队协作、进度跟踪和
-                            实时通知功能。
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Vue.js</span>
-                            <span class="tech-tag">Firebase</span>
-                            <span class="tech-tag">PWA</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link">
-                                <i class="fas fa-external-link-alt"></i>
-                                在线演示
-                            </a>
-                            <a href="#" class="project-link">
-                                <i class="fab fa-github"></i>
-                                源代码
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-chart-bar"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">数据可视化仪表板</h3>
-                        <p class="project-description">
-                            企业级数据可视化平台，提供实时数据分析和交互式图表展示。
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">D3.js</span>
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Flask</span>
-                            <span class="tech-tag">PostgreSQL</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link">
-                                <i class="fas fa-external-link-alt"></i>
-                                在线演示
-                            </a>
-                            <a href="#" class="project-link">
-                                <i class="fab fa-github"></i>
-                                源代码
-                            </a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
@@ -636,53 +755,53 @@
                 <div class="contact-item">
                     <i class="fas fa-envelope"></i>
                     <div class="contact-title">邮箱</div>
-                    <a href="mailto:your.email@example.com" class="contact-link">
-                        your.email@example.com
+                    <a href="mailto:alex.chen@example.com" class="contact-link">
+                        alex.chen@example.com
                     </a>
                 </div>
                 <div class="contact-item">
                     <i class="fas fa-phone"></i>
                     <div class="contact-title">电话</div>
-                    <a href="tel:+1234567890" class="contact-link">
+                    <a href="tel:+8613800000000" class="contact-link">
                         +86 138 0000 0000
                     </a>
                 </div>
                 <div class="contact-item">
                     <i class="fas fa-map-marker-alt"></i>
                     <div class="contact-title">位置</div>
-                    <span>中国，北京</span>
+                    <span>中国 · 深圳</span>
                 </div>
             </div>
 
             <!-- 社交媒体链接 -->
             <div class="social-links">
-                <a href="https://github.com/yourusername"
+                <a href="https://github.com/alexchen"
                    class="social-link"
-                   aria-label="GitHub个人资料"
+                   aria-label="GitHub"
                    target="_blank"
                    rel="noopener noreferrer">
                     <i class="fab fa-github"></i>
                 </a>
-                <a href="https://linkedin.com/in/yourusername"
+                <a href="https://linkedin.com/in/alexchen"
                    class="social-link"
-                   aria-label="LinkedIn个人资料"
+                   aria-label="LinkedIn"
                    target="_blank"
                    rel="noopener noreferrer">
                     <i class="fab fa-linkedin"></i>
                 </a>
-                <a href="https://twitter.com/yourusername"
+                <a href="https://twitter.com/alexchen"
                    class="social-link"
-                   aria-label="Twitter个人资料"
+                   aria-label="Twitter"
                    target="_blank"
                    rel="noopener noreferrer">
                     <i class="fab fa-twitter"></i>
                 </a>
-                <a href="mailto:your.email@example.com"
+                <a href="mailto:alex.chen@example.com"
                    class="social-link"
-                   aria-label="发送邮件">
+                   aria-label="邮件">
                     <i class="fas fa-envelope"></i>
                 </a>
-                <a href="https://yourwebsite.com"
+                <a href="https://alexchen.dev"
                    class="social-link"
                    aria-label="个人网站"
                    target="_blank"
@@ -692,92 +811,31 @@
             </div>
         </section>
 
-        <!-- 页脚 -->
+        <!-- 科幻页脚 -->
         <footer class="footer">
-            <p>&copy; 2024 您的姓名. 保留所有权利.</p>
-            <p>使用 ❤️ 和现代Web技术构建</p>
+            <p>&copy; 2024 Alex Chen. All Rights Reserved.</p>
+            <p>Powered by Future Technology ⚡</p>
         </footer>
     </div>
 
-    <!-- 可选的JavaScript增强功能 -->
+    <!-- 科幻JavaScript增强功能 -->
     <script>
-        // 平滑滚动效果
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+        // 创建星空背景
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const numStars = 100;
 
-        // 添加滚动时的视差效果
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const header = document.querySelector('.header');
-            if (header) {
-                header.style.transform = `translateY(${scrolled * 0.5}px)`;
+            for (let i = 0; i < numStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
             }
-        });
+        }
 
-        // 技能项目的交互效果
-        document.querySelectorAll('.skill-item').forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-5px) scale(1.02)';
-            });
-
-            item.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
-            });
-        });
-
-        // 项目卡片的3D效果
-        document.querySelectorAll('.project-card').forEach(card => {
-            card.addEventListener('mousemove', function(e) {
-                const rect = this.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                const rotateX = (y - centerY) / 10;
-                const rotateY = (centerX - x) / 10;
-
-                this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
-            });
-
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
-            });
-        });
-
-        // 联系项目的动画效果
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        // 观察所有卡片元素
-        document.querySelectorAll('.card').forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(30px)';
-            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(card);
-        });
-
-        // 打字机效果（可选）
+        // 打字机效果
         function typeWriter(element, text, speed = 100) {
             let i = 0;
             element.innerHTML = '';
@@ -793,22 +851,81 @@
             type();
         }
 
-        // 页面加载完成后的初始化
-        document.addEventListener('DOMContentLoaded', function() {
-            // 为标题添加打字机效果（可选）
-            const title = document.querySelector('.header h1');
-            if (title) {
-                const originalText = title.textContent;
-                typeWriter(title, originalText, 150);
-            }
+        // 科幻悬浮效果
+        function addHoverEffects() {
+            document.querySelectorAll('.skill-item').forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.05)';
+                });
 
-            // 添加加载动画
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            document.querySelectorAll('.contact-item').forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                });
+
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        }
+
+        // 滚动视差效果
+        function addParallaxEffect() {
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const header = document.querySelector('.header');
+                if (header) {
+                    header.style.transform = `translateY(${scrolled * 0.3}px)`;
+                }
+            });
+        }
+
+        // 页面加载动画
+        function initPageAnimation() {
             document.body.style.opacity = '0';
             setTimeout(() => {
-                document.body.style.transition = 'opacity 0.5s ease';
+                document.body.style.transition = 'opacity 1s ease';
                 document.body.style.opacity = '1';
             }, 100);
+        }
+
+        // 初始化所有功能
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+            addHoverEffects();
+            addParallaxEffect();
+            initPageAnimation();
+
+            // 为标题添加打字机效果
+            const title = document.getElementById('name-title');
+            if (title) {
+                const originalText = title.textContent;
+                setTimeout(() => {
+                    typeWriter(title, originalText, 150);
+                }, 500);
+            }
+
+            // 添加键盘导航支持
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Tab') {
+                    document.body.classList.add('keyboard-navigation');
+                }
+            });
+
+            document.addEventListener('mousedown', function() {
+                document.body.classList.remove('keyboard-navigation');
+            });
         });
+
+        // 性能优化：减少动画在低性能设备上的影响
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.documentElement.style.setProperty('--transition', 'none');
+        }
     </script>
 </body>
 </html>
